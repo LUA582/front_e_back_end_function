@@ -1,1 +1,2 @@
-Frontend e Backend das Funções
+Frontend e Backend das Funções.
+HTML, CSS e JAVASCRIPT.
