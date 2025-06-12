@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .section {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        input, select, button, textarea {
+            display: block;
+            margin: 8px 0;
+            padding: 8px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h2>Gerador de Senha</h2>
+        <input id="tamanho-senha" type="number" placeholder="Comprimento da senha (min: 4)">
+        <button onclick="gerarSenhaHandler()">Gerar</button>
+        <p id="res-senha"></p>
+    </div>
+    <script>
+       
+    function gerarSenha(comprimento) {
+        if (typeof comprimento !== 'number' || comprimento < 4) {
+            return 'Comprimento inválido (mínimo de 4 caracteres)';
+        }
+
+        const maiusculas = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const minusculas = 'abcdefghijklmnopqrstuvwxyz';
+        const numeros = '0123456789';
+        const todos = maiusculas + minusculas + numeros;
+
+        let senha = [
+            maiusculas[Math.floor(Math.random() * maiusculas.length)],
+            minusculas[Math.floor(Math.random() * minusculas.length)],
+            numeros[Math.floor(Math.random() * numeros.length)]
+        ];
+
+        for (let i = senha.length; i < comprimento; i++) {
+            senha.push(todos[Math.floor(Math.random() * todos.length)]);
+        }
+
+        return senha.sort(() => 0.5 - Math.random()).join('');
+    }
+
+    function gerarSenhaHandler() {
+        const input = document.getElementById('tamanho-senha').value;
+        const tamanho = parseInt(input);
+
+       
+        if (isNaN(tamanho)) {
+            document.getElementById('res-senha').textContent = 'Por favor, digite um número válido.';
+            return;
+        }
+
+        if (tamanho < 4) {
+            document.getElementById('res-senha').textContent = 'A senha deve ter pelo menos 4 caracteres.';
+            return;
+        }
+
+        
+        const senhaGerada = gerarSenha(tamanho);
+        document.getElementById('res-senha').textContent = 'Senha gerada: ' + senhaGerada;
+    }
+    console.log(gerarSenha(10))
+    </script>
+</body>
+</html>

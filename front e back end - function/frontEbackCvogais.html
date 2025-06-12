@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .section {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        input, select, button, textarea {
+            display: block;
+            margin: 8px 0;
+            padding: 8px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h2>Contar Vogais</h2>
+        <input id="texto-vogais" placeholder="Digite um texto">
+        <button onclick="contarVogaisHandler()">Contar</button>
+        <p id="res-vogais"></p>
+    </div>
+
+    <script>
+       function contarVogais(texto) {
+            const vogais = texto.toLowerCase().match(/[aeiou]/g);
+            return vogais ? vogais.length : 0;
+        }
+
+        function contarVogaisHandler() {
+            const texto = document.getElementById('texto-vogais').value;
+            const resultado = contarVogais(texto);
+            document.getElementById('res-vogais').textContent = `Vogais: ${resultado}`;
+        }
+        console.log(contarVogais('Lua gosta de JavaScript')); 
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .section {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        input, select, button, textarea {
+            display: block;
+            margin: 8px 0;
+            padding: 8px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h2>Filtrar Palavras por Tamanho</h2>
+        <input id="lista-palavras" placeholder="Ex: sol,mar,montanha,lua">
+        <input id="comprimento-minimo" type="number" placeholder="Comprimento mínimo">
+        <button onclick="filtrarPalavrasHandler()">Filtrar</button>
+        <p id="res-palavras"></p>
+    </div>
+    <script>
+        function filtrarPalavras(palavras, comprimentoMinimo) {
+        if (!Array.isArray(palavras) || typeof comprimentoMinimo !== 'number' || isNaN(comprimentoMinimo)) {
+            return 'Entrada inválida';
+        }
+        return palavras.filter(p => typeof p === 'string' && p.length >= comprimentoMinimo);
+    }
+
+    function filtrarPalavrasHandler() {
+      
+        const listaInput = document.getElementById('lista-palavras').value.trim();
+        const comprimentoInput = document.getElementById('comprimento-minimo').value.trim();
+
+     
+        if (!listaInput || !comprimentoInput) {
+            document.getElementById('res-palavras').textContent = 'Por favor, preencha ambos os campos.';
+            return;
+        }
+    
+        const listaArray = listaInput.split(',').map(p => p.trim());
+
+      
+        const comprimentoMinimo = parseInt(comprimentoInput);
+
+    
+        if (isNaN(comprimentoMinimo) || comprimentoMinimo < 0) {
+            document.getElementById('res-palavras').textContent = 'Digite um número válido para o comprimento mínimo.';
+            return;
+        }
+
+      
+        const resultado = filtrarPalavras(listaArray, comprimentoMinimo);
+
+        if (Array.isArray(resultado)) {
+            if (resultado.length > 0) {
+                document.getElementById('res-palavras').textContent = 
+                    'Palavras encontradas: ' + resultado.join(', ');
+            } else {
+                document.getElementById('res-palavras').textContent = 
+                    'Nenhuma palavra atende ao critério.';
+            }
+        } else {
+            document.getElementById('res-palavras').textContent = resultado;
+        }
+    }
+    console.log(filtrarPalavras(['sol', 'mar', 'montanha', 'lua'], 4)); 
+    </script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Calculadora de Funções</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .section {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        input, select, button, textarea {
+            display: block;
+            margin: 8px 0;
+            padding: 8px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Calculadora de Funções</h1>
+
+    <div class="section">
+        <h2>Desconto</h2>
+        <input id="preco" type="number" placeholder="Preço">
+        <input id="desconto" type="number" placeholder="Desconto (%)">
+        <button onclick="calcularDesconto()">Calcular</button>
+        <p id="res-desconto"></p>
+    </div>
+
+    <div class="section">
+        <h2>Média</h2>
+        <input id="numeros" placeholder="Ex: 10,20,30">
+        <button onclick="calcularMedia()">Calcular</button>
+        <p id="res-media"></p>
+    </div>
+
+    <div class="section">
+        <h2>Categorizar Produto</h2>
+        <input id="preco-produto" type="number" placeholder="Preço">
+        <button onclick="categorizarProduto()">Calcular</button>
+        <p id="res-categoria"></p>
+    </div>
+
+    <div class="section">
+        <h2>Salário Líquido</h2>
+        <input id="salario" type="number" placeholder="Salário bruto">
+        <input id="desconto-salario" type="number" placeholder="Desconto (%)">
+        <button onclick="calcularSalario()">Calcular</button>
+        <p id="res-salario"></p>
+    </div>
+
+    <div class="section">
+        <h2>Conversor de Temperatura</h2>
+        <input id="temp" type="number" placeholder="Temperatura">
+        <select id="tipo">
+            <option value="CtoF">Celsius para Fahrenheit</option>
+            <option value="FtoC">Fahrenheit para Celsius</option>
+        </select>
+        <button onclick="converterTemp()">Converter</button>
+        <p id="res-temp"></p>
+    </div>
+
+    <div class="section">
+        <h2>Contar Vogais</h2>
+        <input id="texto-vogais" placeholder="Digite um texto">
+        <button onclick="contarVogaisHandler()">Contar</button>
+        <p id="res-vogais"></p>
+    </div>
+
+    <div class="section">
+        <h2>Gerador de Senha</h2>
+        <input id="tamanho-senha" type="number" placeholder="Comprimento da senha (min: 4)">
+        <button onclick="gerarSenhaHandler()">Gerar</button>
+        <p id="res-senha"></p>
+    </div>
+
+    <div class="section">
+        <h2>Filtrar Palavras por Tamanho</h2>
+        <input id="lista-palavras" placeholder="Ex: sol,mar,montanha,lua">
+        <input id="comprimento-minimo" type="number" placeholder="Comprimento mínimo">
+        <button onclick="filtrarPalavrasHandler()">Filtrar</button>
+        <p id="res-palavras"></p>
+    </div>
+
+    <div class="section">
+        <h2>Verificar Maioridade</h2>
+        <input id="idade" type="number" placeholder="Digite a idade">
+        <button onclick="verificarMaioridadeHandler()">Verificar</button>
+        <p id="res-idade"></p>
+    </div>
+
+    <div class="section">
+        <h2>Número Primo</h2>
+        <input id="numero-primo" type="number" placeholder="Digite um número">
+        <button onclick="verificarPrimoHandler()">Verificar</button>
+        <p id="res-primo"></p>
+    </div>
+
+    <script>
+        function calcularDesconto() {
+            const preco = parseFloat(document.getElementById('preco').value);
+            const desconto = parseFloat(document.getElementById('desconto').value);
+            const resultado = preco - (preco * (desconto / 100));
+            document.getElementById('res-desconto').textContent = `Preço com desconto: R$ ${resultado.toFixed(2)}`;
+        }
+
+        function calcularMedia() {
+            const numeros = document.getElementById('numeros').value.split(',').map(n => parseFloat(n));
+            const media = numeros.reduce((a, b) => a + b, 0) / numeros.length;
+            document.getElementById('res-media').textContent = `Média: ${media.toFixed(2)}`;
+        }
+
+        function categorizarProduto() {
+            const preco = parseFloat(document.getElementById('preco-produto').value);
+            let categoria = 'Desconhecida';
+            if (preco < 50) categoria = 'Barato';
+            else if (preco <= 150) categoria = 'Moderado';
+            else categoria = 'Caro';
+            document.getElementById('res-categoria').textContent = `Categoria: ${categoria}`;
+        }
+
+        function calcularSalario() {
+            const salario = parseFloat(document.getElementById('salario').value);
+            const desconto = parseFloat(document.getElementById('desconto-salario').value);
+            const liquido = salario - (salario * (desconto / 100));
+            document.getElementById('res-salario').textContent = `Salário líquido: R$ ${liquido.toFixed(2)}`;
+        }
+
+        function converterTemp() {
+            const temp = parseFloat(document.getElementById('temp').value);
+            const tipo = document.getElementById('tipo').value;
+            let resultado = 0;
+            if (tipo === 'CtoF') {
+                resultado = (temp * 9/5) + 32;
+                document.getElementById('res-temp').textContent = `${temp}°C = ${resultado.toFixed(2)}°F`;
+            } else {
+                resultado = (temp - 32) * 5/9;
+                document.getElementById('res-temp').textContent = `${temp}°F = ${resultado.toFixed(2)}°C`;
+            }
+        }
+
+        function contarVogais(texto) {
+            if (typeof texto !== 'string') return 'Entrada inválida';
+            const vogais = texto.match(/[aeiou]/gi);
+            return vogais ? vogais.length : 0;
+        }
+
+        function contarVogaisHandler() {
+            const texto = document.getElementById('texto-vogais').value;
+            const resultado = contarVogais(texto);
+            document.getElementById('res-vogais').textContent = `Vogais: ${resultado}`;
+        }
+
+        function gerarSenha(comprimento) {
+            if (typeof comprimento !== 'number' || comprimento < 4) {
+                return 'Comprimento inválido (mínimo de 4 caracteres)';
+            }
+            const maiusculas = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const minusculas = 'abcdefghijklmnopqrstuvwxyz';
+            const numeros = '0123456789';
+            const todos = maiusculas + minusculas + numeros;
+
+            let senha = [
+                maiusculas[Math.floor(Math.random() * maiusculas.length)],
+                minusculas[Math.floor(Math.random() * minusculas.length)],
+                numeros[Math.floor(Math.random() * numeros.length)]
+            ];
+
+            for (let i = senha.length; i < comprimento; i++) {
+                senha.push(todos[Math.floor(Math.random() * todos.length)]);
+            }
+
+            return senha.sort(() => 0.5 - Math.random()).join('');
+        }
+
+        function gerarSenhaHandler() {
+            const tamanho = parseInt(document.getElementById('tamanho-senha').value);
+        }
